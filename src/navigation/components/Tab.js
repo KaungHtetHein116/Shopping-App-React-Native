@@ -1,11 +1,11 @@
 import React from 'react';
 import {TouchableOpacity, StyleSheet} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function Tab({color, tab, onPress, icon}) {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
-      <Icon name={icon} size={icon === 'plus-circle' ? 60 : 30} color={color} />
+      <MaterialCommunityIcons name={icon} size={30} color={color} />
     </TouchableOpacity>
   );
 }

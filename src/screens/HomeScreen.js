@@ -69,6 +69,7 @@ function HomeScreen(props) {
 
   const state = useSelector((state) => state.Data.data);
   const cart = useSelector((state) => state.User.Cart);
+  console.log(state);
 
   useEffect(() => {
     if (!_.isEmpty(cart)) {

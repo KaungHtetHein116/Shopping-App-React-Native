@@ -56,61 +56,62 @@ const BagModal = ({closeModal}) => {
         <Text style={styles.headerSubTitle}>{itemCount} Items</Text>
       </View>
       {/* Transaction */}
-      <View
-        style={{
-          flexDirection: 'row',
-          backgroundColor: 'white',
-          margin: 10,
-          borderRadius: 10,
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          height: 200,
-          elevation: 10,
-        }}>
-        <View style={{paddingLeft: 20}}>
-          <Text style={{marginBottom: 20}}>Subtotal</Text>
-          <Text style={{marginBottom: 20}}>Tax {'&'} Fees</Text>
-          <Text style={{marginBottom: 20}}>Delivery</Text>
-          <Text style={{fontSize: theme.sizes.h4, fontWeight: 'bold'}}>
-            Total
-          </Text>
+      {!_.isEmpty(cart) ? (
+        <View
+          style={{
+            flexDirection: 'row',
+            backgroundColor: 'white',
+            margin: 10,
+            borderRadius: 10,
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            height: 200,
+            elevation: 10,
+          }}>
+          <View style={{paddingLeft: 20}}>
+            <Text style={{marginBottom: 20}}>Subtotal</Text>
+            <Text style={{marginBottom: 20}}>Tax {'&'} Fees</Text>
+            <Text style={{marginBottom: 20}}>Delivery</Text>
+            <Text style={{fontSize: theme.sizes.h4, fontWeight: 'bold'}}>
+              Total
+            </Text>
+          </View>
+          <View style={{paddingRight: 20}}>
+            <Text
+              style={{
+                textAlign: 'right',
+                marginBottom: 20,
+                color: 'red',
+              }}>
+              ${subtotalAmount}
+            </Text>
+            <Text
+              style={{
+                textAlign: 'right',
+                marginBottom: 20,
+                color: 'red',
+              }}>
+              ${tax}
+            </Text>
+            <Text
+              style={{
+                textAlign: 'right',
+                marginBottom: 20,
+                color: 'red',
+              }}>
+              Free
+            </Text>
+            <Text
+              style={{
+                textAlign: 'right',
+                fontSize: theme.sizes.h4,
+                color: 'red',
+              }}>
+              ${totalAmount}
+            </Text>
+          </View>
         </View>
-        <View style={{paddingRight: 20}}>
-          <Text
-            style={{
-              textAlign: 'right',
-              marginBottom: 20,
-              color: 'red',
-            }}>
-            ${subtotalAmount}
-          </Text>
-          <Text
-            style={{
-              textAlign: 'right',
-              marginBottom: 20,
-              color: 'red',
-            }}>
-            ${tax}
-          </Text>
-          <Text
-            style={{
-              textAlign: 'right',
-              marginBottom: 20,
-              color: 'red',
-            }}>
-            Free
-          </Text>
-          <Text
-            style={{
-              textAlign: 'right',
-              fontSize: theme.sizes.h4,
-              color: 'red',
-            }}>
-            ${totalAmount}
-          </Text>
-        </View>
-      </View>
-      {/* Body */}
+      ) : null}
 
       {!_.isEmpty(cart) ? (
         <View style={styles.bodyContainer}>
@@ -177,7 +178,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ecf0f1',
   },
   header: {
-    // height: 60,
+    height: 60,
     padding: 15,
     alignItems: 'center',
     justifyContent: 'space-between',

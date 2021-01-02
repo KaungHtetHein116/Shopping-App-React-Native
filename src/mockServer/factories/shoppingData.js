@@ -13,17 +13,33 @@ export default Factory.extend({
   },
   title: faker.commerce.productName(),
   price: Math.floor(Math.random() * (5000 - 100)),
-  description: faker.commerce.productDescription(),
+  description: faker.lorem.paragraphs(),
   rating: 3,
   reviews() {
     return {
-      reviewerCount: Math.floor(Math.random() * (50 - 10)),
-      commentReview: [
-        faker.lorem.paragraphs(),
-        faker.lorem.paragraphs(),
-        faker.lorem.paragraphs(),
-        faker.lorem.paragraphs(),
+      reviewers: [
+        {
+          name: faker.name.findName(),
+          comment: faker.lorem.paragraph(),
+          ratingGiven: 4,
+        },
+        {
+          name: faker.name.findName(),
+          comment: faker.lorem.paragraph(),
+          ratingGiven: 4,
+        },
+        {
+          name: faker.name.findName(),
+          comment: faker.lorem.paragraph(),
+          ratingGiven: 4,
+        },
+        {
+          name: faker.name.findName(),
+          comment: faker.lorem.paragraph(),
+          ratingGiven: 4,
+        },
       ],
+      reviewerCount: Math.floor(Math.random() * (50 - 10)),
     };
   },
   preview: faker.image.fashion(),

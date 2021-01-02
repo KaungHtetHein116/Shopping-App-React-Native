@@ -1,7 +1,7 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {HomeStackNavigator} from './StackNavigator';
-import {PostStackNavigator} from './StackNavigator';
+import {ProfileStackNavigator} from './StackNavigator';
 import {CategoryStackNavigator} from './StackNavigator';
 import TabBar from './components/TabBar';
 
@@ -16,14 +16,14 @@ const TabNavigator = () => {
         initialParams={{icon: 'home'}}
       />
       <Tab.Screen
-        name="PostScreen"
-        component={PostStackNavigator}
-        initialParams={{icon: 'plus-circle'}}
-      />
-      <Tab.Screen
         name="CategoryScreen"
         component={CategoryStackNavigator}
-        initialParams={{icon: 'segment'}}
+        initialParams={{icon: 'animation-outline'}}
+      />
+      <Tab.Screen
+        name="ProfileScreen"
+        component={ProfileStackNavigator}
+        initialParams={{icon: 'account-circle'}}
       />
     </Tab.Navigator>
   );

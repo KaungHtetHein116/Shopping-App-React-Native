@@ -9,6 +9,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Modal,
+  Button,
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -19,6 +20,8 @@ import BagModal from './BagModal';
 import RenderRatings from './RenderRatings';
 import CartItemCount from './CartItemCount';
 import _ from 'lodash';
+import ReviewModal from './ReviewModal';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const {width, height} = Dimensions.get('window');
 const scrollX = new Animated.Value(0);
@@ -29,9 +32,14 @@ const ProductModal = (props) => {
   const cart = useSelector((state) => state.User.Cart);
   const [isVisible, setIsVisible] = useState(false);
   const [bagVisible, setBagVisible] = useState(false);
+  const [reviewVisible, setReviewVisible] = useState(false);
   const [itemCount, setItemCount] = useState(0);
   const ToggleBagVisible = () => {
     setBagVisible(!bagVisible);
+  };
+
+  const ToggleReviewVisible = () => {
+    setReviewVisible(!reviewVisible);
   };
 
   useEffect(() => {
@@ -71,7 +79,6 @@ const ProductModal = (props) => {
           onPress={() => ToggleBagVisible()}>
           <MaterialIcons name="shopping-cart" size={25} color={'white'} />
           <View style={styles.badgeContainer}>
-            {/* <Text style={styles.badgeText}>6</Text> */}
             <CartItemCount itemCount={itemCount} />
           </View>
         </TouchableOpacity>
@@ -129,7 +136,7 @@ const ProductModal = (props) => {
                     key={`${index}-${img.source.uri}`}
                     source={{uri: img.source.uri}}
                     resizeMode="cover"
-                    style={{width, height: height / 2.5}}
+                    style={{width, height: height / 2}}
                   />
                 </TouchableOpacity>
               </View>
@@ -137,13 +144,49 @@ const ProductModal = (props) => {
           </ScrollView>
           {renderDots()}
         </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            backgroundColor: 'transparent',
+            paddingVertical: 10,
+            justifyContent: 'space-around',
+            borderBottomColor: '#bec4cf',
+            borderBottomWidth: 0.9,
+            alignItems: 'center',
+          }}>
+          <TouchableOpacity>
+            <FontAwesome name="heart-o" size={30} color={'black'} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setReviewVisible(true)}>
+            <Ionicons name="newspaper-outline" size={30} color={'black'} />
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <FontAwesome name="share-square-o" size={30} color={'black'} />
+          </TouchableOpacity>
+
+          <Modal
+            animationType="slide"
+            visible={reviewVisible}
+            onRequestClose={() => ToggleReviewVisible()}>
+            <ReviewModal closeModal={() => ToggleReviewVisible()} item={item} />
+          </Modal>
+        </View>
         <View style={[styles.contentHeader]}>
-          <Text style={styles.titleText}>{props.item.title}</Text>
-          <Text style={styles.priceText}>${props.item.price}</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}>
+            <Text style={styles.titleText}>{props.item.title}</Text>
+            <Text style={styles.priceText}>${props.item.price}</Text>
+          </View>
+
           <View
             style={{
               flexDirection: 'row',
               alignItems: 'center',
+              marginVertical: 10,
             }}>
             <RenderRatings rating={props.item.rating} />
             <Text>({item.reviews.reviewerCount})</Text>
@@ -165,11 +208,6 @@ const ProductModal = (props) => {
 
       {/* <FooterButtons /> */}
       <View style={styles.footerContainer}>
-        <TouchableOpacity
-          style={[styles.btnContainer, {marginRight: 10}]}
-          activeOpacity={0.8}>
-          <FontAwesome name="heart" size={30} color={'white'} />
-        </TouchableOpacity>
         <TouchableOpacity
           onPress={() => onUpdateCart()}
           style={[styles.btnContainer, {flex: 1}]}
@@ -216,17 +254,14 @@ const styles = StyleSheet.create({
   },
   contentHeader: {
     flex: 1,
-    padding: 20,
+    padding: 17,
     backgroundColor: theme.colors.white,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    marginTop: -theme.sizes.padding / 2,
   },
   dotsContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
-    bottom: 36,
+    bottom: 25,
     right: 0,
     left: 0,
   },
@@ -260,13 +295,12 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontWeight: 'bold',
-    fontSize: theme.sizes.h4,
+    fontSize: theme.sizes.h1,
   },
   priceText: {
     fontWeight: 'bold',
-    fontSize: theme.sizes.h1,
+    fontSize: theme.sizes.h2,
     color: '#CB1649',
-    margin: 10,
   },
   footerContainer: {
     padding: 10,
