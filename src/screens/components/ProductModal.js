@@ -9,9 +9,8 @@ import {
   ScrollView,
   TouchableOpacity,
   Modal,
-  Button,
 } from 'react-native';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import * as theme from '../../util/theme';
@@ -22,6 +21,7 @@ import CartItemCount from './CartItemCount';
 import _ from 'lodash';
 import ReviewModal from './ReviewModal';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {onUpdateWishList} from '../../redux/actions/UserAction';
 
 const {width, height} = Dimensions.get('window');
 const scrollX = new Animated.Value(0);
@@ -30,10 +30,12 @@ const ProductModal = (props) => {
   const [index, setIndex] = useState(null);
   const {item, closeModal, onUpdateCart} = props;
   const cart = useSelector((state) => state.User.Cart);
+
   const [isVisible, setIsVisible] = useState(false);
   const [bagVisible, setBagVisible] = useState(false);
   const [reviewVisible, setReviewVisible] = useState(false);
   const [itemCount, setItemCount] = useState(0);
+  const dispatch = useDispatch();
   const ToggleBagVisible = () => {
     setBagVisible(!bagVisible);
   };
@@ -49,7 +51,6 @@ const ProductModal = (props) => {
       setItemCount(0);
     }
   }, [cart]);
-  console.log(itemCount);
 
   const itemsInCart = () => {
     let totalItem = 0;
@@ -154,7 +155,7 @@ const ProductModal = (props) => {
             borderBottomWidth: 0.9,
             alignItems: 'center',
           }}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => dispatch(onUpdateWishList(item))}>
             <FontAwesome name="heart-o" size={30} color={'black'} />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => setReviewVisible(true)}>

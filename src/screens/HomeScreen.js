@@ -69,7 +69,6 @@ function HomeScreen(props) {
 
   const state = useSelector((state) => state.Data.data);
   const cart = useSelector((state) => state.User.Cart);
-  console.log(state);
 
   useEffect(() => {
     if (!_.isEmpty(cart)) {
@@ -78,7 +77,6 @@ function HomeScreen(props) {
       setItemCount(0);
     }
   }, [cart]);
-  console.log(itemCount);
 
   const itemsInCart = () => {
     let totalItem = 0;

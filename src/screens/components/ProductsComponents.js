@@ -41,8 +41,10 @@ const ProductComponent = ({item, onUpdateCart}) => {
       <View style={styles.imgContainer}>
         <Image source={{uri: item.preview}} style={styles.image} />
       </View>
-      <View>
-        <Text style={styles.title}>{item.title}</Text>
+      <View style={{padding: 4}}>
+        <Text numberOfLines={2} style={styles.title}>
+          {item.title}
+        </Text>
         <Text style={styles.subTitle}>{item.price}$</Text>
         <View
           style={{
@@ -65,10 +67,11 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderTopRightRadius: theme.sizes.radius,
     borderTopLeftRadius: theme.sizes.radius,
+    elevation: 1,
   },
   title: {
     fontWeight: 'bold',
-    fontSize: theme.sizes.h2,
+    fontSize: theme.sizes.h3,
     color: theme.colors.light.foreground,
   },
   subTitle: {

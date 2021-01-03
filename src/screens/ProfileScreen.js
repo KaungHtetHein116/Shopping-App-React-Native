@@ -4,8 +4,10 @@ import faker from 'faker';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import * as theme from '../util/theme';
+import {useNavigation} from '@react-navigation/native';
 
 export default function ProfileScreen() {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.avatarContainer}>
@@ -62,7 +64,10 @@ export default function ProfileScreen() {
             />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.listContainer} activeOpacity={0.7}>
+        <TouchableOpacity
+          style={styles.listContainer}
+          activeOpacity={0.7}
+          onPress={() => navigation.navigate('WishListScreen')}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Ionicons name="ios-heart-outline" size={30} color={'black'} />
             <View style={{marginLeft: 10}}>
@@ -112,7 +117,7 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: 10,
+    marginHorizontal: 15,
     backgroundColor: 'white',
   },
   image: {

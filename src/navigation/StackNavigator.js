@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import WishListScreen from '../screens/WishListScreen';
 import SearchScreen from '../screens/SearchScreen';
 import CategoryScreen from '../screens/CategoryScreen';
 
@@ -26,6 +27,7 @@ export const ProfileStackNavigator = () => {
         headerShown: false,
       }}>
       <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+      <Stack.Screen name="WishListScreen" component={WishListScreen} />
     </Stack.Navigator>
   );
 };

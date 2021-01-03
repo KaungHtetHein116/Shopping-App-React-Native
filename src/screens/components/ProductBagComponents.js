@@ -94,7 +94,7 @@ const ProductBagComponent = ({item}) => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 5,
-    borderWidth: 1,
+    borderWidth: 0.7,
     borderColor: theme.colors.gray,
     borderRadius: 10,
     backgroundColor: 'white',

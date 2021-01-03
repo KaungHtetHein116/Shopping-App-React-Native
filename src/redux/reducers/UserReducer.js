@@ -1,8 +1,13 @@
-import {ON_UPDATE_CART} from '../actions/types';
+import {
+  ON_UPDATE_CART,
+  ON_UPDATE_WISHLIST,
+  ON_REMOVE_WISHLIST,
+} from '../actions/types';
 
 const initialState = {
   user: {},
   Cart: [],
+  WishList: [],
 };
 
 export default (state = initialState, action) => {
@@ -32,30 +37,27 @@ export default (state = initialState, action) => {
       }
     }
 
+    case ON_UPDATE_WISHLIST: {
+      if (state.WishList.some((item) => item.id === action.payload.id)) {
+        return state;
+      } else {
+        return {
+          ...state,
+          WishList: [...state.WishList, action.payload],
+        };
+      }
+    }
+
+    case ON_REMOVE_WISHLIST: {
+      return {
+        ...state,
+        WishList: state.WishList.filter(
+          (item) => item.id !== action.payload.id,
+        ),
+      };
+    }
+
     default:
       return state;
   }
 };
-
-// const existingFoods = state.Cart.filter(
-//   (item) => item._id === action.payload._id,
-// );
-
-// if (existingFoods.length > 0) {
-//   let upadtedCart = state.Cart.map((food) => {
-//     if (food._id === action.payload._id) {
-//       food.unit = action.payload.unit;
-//     }
-//     return food;
-//   });
-
-//   return {
-//     ...state,
-//     Cart: upadtedCart.filter((item) => item.unit > 0),
-//   };
-// } else {
-//   return {
-//     ...state,
-//     Cart: [...state.Cart, action.payload],
-//   };
-// }
