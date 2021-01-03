@@ -23,7 +23,8 @@ const ProductComponent = ({item, onUpdateCart}) => {
   return (
     <TouchableOpacity
       onPress={() => ToggleProductVisible()}
-      style={[styles.container, {backgroundColor: 'white'}]}>
+      style={[styles.container, {backgroundColor: 'white'}]}
+      activeOpacity={0.8}>
       <Modal
         animationType="slide"
         visible={productVisible}

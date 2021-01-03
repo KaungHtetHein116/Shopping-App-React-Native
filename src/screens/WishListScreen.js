@@ -1,17 +1,58 @@
-import React from 'react';
-import {View, Text, StyleSheet, Image, FlatList} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+  Modal,
+} from 'react-native';
+import BagModal from './components/BagModal';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import * as theme from '../util/theme';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import WishListComponent from './components/WishListComponent';
+import CartItemCount from './components/CartItemCount';
+import _ from 'lodash';
 
 export default function WishListScreen() {
+  const [itemCount, setItemCount] = useState(0);
+  const [bagVisible, setBagVisible] = useState(false);
+
   const navigation = useNavigation();
   const wishList = useSelector((state) => state.User.WishList);
+  const cart = useSelector((state) => state.User.Cart);
+
+  const ToggleBagVisible = () => {
+    setBagVisible(!bagVisible);
+  };
+
+  const itemsInCart = () => {
+    let totalItem = 0;
+    cart.map((item) => {
+      totalItem = totalItem + item.unit;
+    });
+    setItemCount(totalItem);
+  };
+
+  useEffect(() => {
+    if (!_.isEmpty(cart)) {
+      itemsInCart();
+    } else {
+      setItemCount(0);
+    }
+  }, [cart]);
   console.log(wishList);
+
   return (
     <View style={styles.container}>
+      <Modal
+        animationType="slide"
+        visible={bagVisible}
+        onRequestClose={() => ToggleBagVisible()}>
+        <BagModal closeModal={() => ToggleBagVisible()} />
+      </Modal>
       {/* Header */}
       <View style={styles.headerContainer}>
         <MaterialIcons
@@ -23,7 +64,15 @@ export default function WishListScreen() {
         <Text style={{fontSize: theme.sizes.h2, fontWeight: 'bold'}}>
           WHIS LIST
         </Text>
-        <View style={{width: 30, height: 30}} />
+        <TouchableOpacity
+          style={styles.iconContainer}
+          onPress={() => ToggleBagVisible()}>
+          <MaterialIcons name="shopping-cart" size={25} color={'white'} />
+          <View style={styles.badgeContainer}>
+            {/* <Text style={styles.badgeText}>6</Text> */}
+            <CartItemCount itemCount={itemCount} />
+          </View>
+        </TouchableOpacity>
       </View>
       <View style={styles.listCount}>
         <Text style={{color: 'white'}}>{wishList.length} items</Text>
@@ -59,5 +108,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     fontSize: theme.sizes.h3,
+  },
+  iconContainer: {
+    padding: 10,
+    borderRadius: 30,
+    backgroundColor: 'black',
+  },
+  badgeContainer: {
+    top: -4,
+    right: -4,
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    backgroundColor: theme.colors.green,
   },
 });

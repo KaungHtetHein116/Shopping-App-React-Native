@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontWeight: 'bold',
     fontSize: theme.sizes.h4,
-    color: 'red',
+    color: 'dodgerblue',
   },
   headerSubTitle: {
     fontSize: theme.sizes.h2,
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
-    backgroundColor: '#CB1649',
+    backgroundColor: 'dodgerblue',
   },
   btnText: {
     fontWeight: 'bold',

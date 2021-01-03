@@ -21,7 +21,11 @@ import CartItemCount from './CartItemCount';
 import _ from 'lodash';
 import ReviewModal from './ReviewModal';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {onUpdateWishList} from '../../redux/actions/UserAction';
+import {
+  onUpdateWishList,
+  onRemoveWishList,
+} from '../../redux/actions/UserAction';
+import RenderHeartButton from './RenderHeartButton';
 
 const {width, height} = Dimensions.get('window');
 const scrollX = new Animated.Value(0);
@@ -29,13 +33,25 @@ const scrollX = new Animated.Value(0);
 const ProductModal = (props) => {
   const [index, setIndex] = useState(null);
   const {item, closeModal, onUpdateCart} = props;
-  const cart = useSelector((state) => state.User.Cart);
-
   const [isVisible, setIsVisible] = useState(false);
   const [bagVisible, setBagVisible] = useState(false);
   const [reviewVisible, setReviewVisible] = useState(false);
   const [itemCount, setItemCount] = useState(0);
   const dispatch = useDispatch();
+
+  const cart = useSelector((state) => state.User.Cart);
+  const wishList = useSelector((state) => state.User.WishList);
+
+  const checkWishList = wishList.some((listItem) => listItem.id === item.id);
+
+  const onAdd = () => {
+    dispatch(onUpdateWishList(item));
+  };
+
+  const onRemove = () => {
+    dispatch(onRemoveWishList(item));
+  };
+
   const ToggleBagVisible = () => {
     setBagVisible(!bagVisible);
   };
@@ -155,9 +171,12 @@ const ProductModal = (props) => {
             borderBottomWidth: 0.9,
             alignItems: 'center',
           }}>
-          <TouchableOpacity onPress={() => dispatch(onUpdateWishList(item))}>
-            <FontAwesome name="heart-o" size={30} color={'black'} />
-          </TouchableOpacity>
+          <RenderHeartButton
+            onPress={onAdd}
+            onAdd={onAdd}
+            onRemove={onRemove}
+            checkWishList={checkWishList}
+          />
           <TouchableOpacity onPress={() => setReviewVisible(true)}>
             <Ionicons name="newspaper-outline" size={30} color={'black'} />
           </TouchableOpacity>

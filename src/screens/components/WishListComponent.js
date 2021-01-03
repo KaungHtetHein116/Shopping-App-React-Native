@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import {useDispatch} from 'react-redux';
 import * as theme from '../../util/theme';
@@ -7,11 +7,14 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import {onRemoveWishList, onUpdateCart} from '../../redux/actions/UserAction';
 
 const WishListComponent = ({item}) => {
+ 
   const dispatch = useDispatch();
+
   const didUpdateCart = (unit) => {
     item.unit = unit;
     dispatch(onUpdateCart(item));
   };
+
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.subContainer} activeOpacity={0.8}>
