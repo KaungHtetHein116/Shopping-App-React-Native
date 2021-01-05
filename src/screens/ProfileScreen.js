@@ -43,7 +43,10 @@ export default function ProfileScreen() {
             />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.listContainer} activeOpacity={0.7}>
+        <TouchableOpacity
+          style={styles.listContainer}
+          activeOpacity={0.7}
+          onPress={() => navigation.navigate('AddressScreen')}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Ionicons name="md-location-outline" size={30} color={'black'} />
             <View style={{marginLeft: 10}}>

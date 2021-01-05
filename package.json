@@ -16,11 +16,14 @@
     "@react-navigation/native": "^5.8.10",
     "@react-navigation/stack": "^5.12.8",
     "faker": "^5.1.0",
+    "formik": "^2.2.6",
     "lodash": "^4.17.20",
     "react": "16.13.1",
     "react-native": "0.63.4",
+    "react-native-action-button": "^2.8.5",
     "react-native-gesture-handler": "^1.9.0",
     "react-native-image-view": "^2.1.9",
+    "react-native-keyboard-aware-scroll-view": "^0.9.3",
     "react-native-modal": "^11.6.1",
     "react-native-reanimated": "^1.13.2",
     "react-native-safe-area-context": "^3.1.9",
@@ -28,7 +31,8 @@
     "react-native-vector-icons": "^7.1.0",
     "react-redux": "^7.2.2",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "yup": "^0.32.8"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",

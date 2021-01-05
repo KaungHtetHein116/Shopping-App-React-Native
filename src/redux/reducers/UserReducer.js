@@ -2,12 +2,38 @@ import {
   ON_UPDATE_CART,
   ON_UPDATE_WISHLIST,
   ON_REMOVE_WISHLIST,
+  ON_ADD_ADDRESS,
+  ON_REMOVE_ADDRESS,
+  ON_EDIT_ADDRESS,
 } from '../actions/types';
+import faker from 'faker';
 
 const initialState = {
   user: {},
   Cart: [],
   WishList: [],
+  Address: [
+    {
+      id: 1,
+      addressType: 'Home',
+      streetAddress: faker.address.streetAddress(),
+      streetAddress2: faker.address.streetName(),
+      city: faker.address.city(),
+      state: faker.address.state(),
+      postalCode: faker.address.zipCode(),
+      country: faker.address.country(),
+    },
+    {
+      id: 2,
+      addressType: 'Work',
+      streetAddress: faker.address.streetAddress(),
+      streetAddress2: faker.address.streetName(),
+      city: faker.address.city(),
+      state: faker.address.state(),
+      postalCode: faker.address.zipCode(),
+      country: faker.address.country(),
+    },
+  ],
 };
 
 export default (state = initialState, action) => {
@@ -54,6 +80,37 @@ export default (state = initialState, action) => {
         WishList: state.WishList.filter(
           (item) => item.id !== action.payload.id,
         ),
+      };
+    }
+    case ON_ADD_ADDRESS: {
+      return {
+        state,
+        Address: [...state.Address, action.payload],
+      };
+    }
+    case ON_REMOVE_ADDRESS: {
+      return {
+        state,
+        Address: state.Address.filter((item) => item.id !== action.payload.id),
+      };
+    }
+
+    case ON_EDIT_ADDRESS: {
+      const index = state.Address.findIndex(
+        (item) => item.id === action.payload.id,
+      );
+      console.log(index);
+      const newArray = [...state.Address];
+      newArray[index].addressType = action.payload.addressType;
+      newArray[index].streetAddress = action.payload.streetAddress;
+      newArray[index].streetAddress2 = action.payload.streetAddress2;
+      newArray[index].city = action.payload.city;
+      newArray[index].state = action.payload.state;
+      newArray[index].postalCode = action.payload.postalCode;
+      newArray[index].country = action.payload.country;
+      return {
+        ...state,
+        Address: newArray,
       };
     }
 

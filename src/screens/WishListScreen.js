@@ -43,7 +43,6 @@ export default function WishListScreen() {
       setItemCount(0);
     }
   }, [cart]);
-  console.log(wishList);
 
   return (
     <View style={styles.container}>
@@ -69,7 +68,6 @@ export default function WishListScreen() {
           onPress={() => ToggleBagVisible()}>
           <MaterialIcons name="shopping-cart" size={25} color={'white'} />
           <View style={styles.badgeContainer}>
-            {/* <Text style={styles.badgeText}>6</Text> */}
             <CartItemCount itemCount={itemCount} />
           </View>
         </TouchableOpacity>
@@ -103,7 +101,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   listCount: {
-    backgroundColor: 'black',
+    backgroundColor: 'dodgerblue',
     height: 60,
     justifyContent: 'center',
     alignItems: 'center',

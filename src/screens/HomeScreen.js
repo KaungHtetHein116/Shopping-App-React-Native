@@ -112,6 +112,7 @@ function HomeScreen(props) {
             </Text>
           </View>
           <TouchableOpacity
+            activeOpacity={0.8}
             style={styles.iconContainer}
             onPress={() => ToggleBagVisible()}>
             <Icon
@@ -120,7 +121,6 @@ function HomeScreen(props) {
               size={25}
             />
             <View style={styles.badgeContainer}>
-              {/* <Text style={styles.badgeText}>6</Text> */}
               <CartItemCount itemCount={itemCount} />
             </View>
           </TouchableOpacity>

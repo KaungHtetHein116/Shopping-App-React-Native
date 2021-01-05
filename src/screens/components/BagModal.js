@@ -31,8 +31,9 @@ const BagModal = ({closeModal}) => {
     }
   }, [cart]);
   console.log(cart);
+
+  let total = 0;
   const onCalculateAmount = () => {
-    let total = 0;
     cart.map((item) => {
       total = total + item.price * item.unit;
     });
@@ -40,8 +41,8 @@ const BagModal = ({closeModal}) => {
     setTotalAmount(total + tax);
   };
 
+  let totalItem = 0;
   const itemsInCart = () => {
-    let totalItem = 0;
     cart.map((item) => {
       totalItem = totalItem + item.unit;
     });
@@ -206,7 +207,7 @@ const styles = StyleSheet.create({
   },
   btnContainer: {
     flex: 1,
-    padding: 30,
+    padding: 27,
     borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'center',

@@ -18,6 +18,7 @@ const colors = {
   yellow: '#FFCC3F',
   orange: '#FFE08E',
   tomato: 'tomato',
+  blue: 'dodgerblue',
 };
 
 const sizes = {

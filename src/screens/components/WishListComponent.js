@@ -1,14 +1,27 @@
-import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  Modal,
+} from 'react-native';
 import {useDispatch} from 'react-redux';
 import * as theme from '../../util/theme';
 import Entypo from 'react-native-vector-icons/Entypo';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import {onRemoveWishList, onUpdateCart} from '../../redux/actions/UserAction';
+import ProductShowCase from './ProductShowCase';
 
 const WishListComponent = ({item}) => {
- 
   const dispatch = useDispatch();
+
+  const [productVisible, setProductVisible] = useState(false);
+
+  const ToggleProductVisible = () => {
+    setProductVisible(!productVisible);
+  };
 
   const didUpdateCart = (unit) => {
     item.unit = unit;
@@ -17,7 +30,19 @@ const WishListComponent = ({item}) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.subContainer} activeOpacity={0.8}>
+      <Modal
+        animationType="slide"
+        visible={productVisible}
+        onRequestClose={() => ToggleProductVisible()}>
+        <ProductShowCase
+          closeModal={() => ToggleProductVisible()}
+          item={item}
+        />
+      </Modal>
+      <TouchableOpacity
+        style={styles.subContainer}
+        activeOpacity={0.8}
+        onPress={() => ToggleProductVisible()}>
         <View style={[styles.imgContainer]}>
           <Image
             source={{uri: item.preview}}
@@ -97,7 +122,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: 140,
     height: 30,
-    backgroundColor: 'black',
+    backgroundColor: 'dodgerblue',
     alignItems: 'center',
     borderRadius: 5,
     marginRight: 20,

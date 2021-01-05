@@ -7,29 +7,44 @@ import {
   TouchableOpacity,
   Modal,
 } from 'react-native';
-import ProductShowCase from './ProductShowCase';
+import {useSelector, useDispatch} from 'react-redux';
 import * as theme from '../../util/theme';
-import AddRemoveButton from './AddRemoveButton';
 import Entypo from 'react-native-vector-icons/Entypo';
-import {useDispatch} from 'react-redux';
-import {onUpdateCart} from '../../redux/actions/UserAction';
+import {
+  onUpdateWishList,
+  onUpdateCart,
+  onRemoveWishList,
+} from '../../redux/actions/UserAction';
+import ProductShowCase from './ProductShowCase';
+import RenderHeartButton from './RenderHeartButton';
 
-const ProductBagComponent = ({item}) => {
+const SearchListComponent = ({item}) => {
+  const dispatch = useDispatch();
+
   const [productVisible, setProductVisible] = useState(false);
+  const wishList = useSelector((state) => state.User.WishList);
 
   const ToggleProductVisible = () => {
     setProductVisible(!productVisible);
   };
-
-  const dispatch = useDispatch();
 
   const didUpdateCart = (unit) => {
     item.unit = unit;
     dispatch(onUpdateCart(item));
   };
 
+  const checkWishList = wishList.some((listItem) => listItem.id === item.id);
+
+  const onAdd = () => {
+    dispatch(onUpdateWishList(item));
+  };
+
+  const onRemove = () => {
+    dispatch(onRemoveWishList(item));
+  };
+
   return (
-    <View style={styles.container} onPress={() => ToggleProductVisible()}>
+    <View style={styles.container}>
       <Modal
         animationType="slide"
         visible={productVisible}
@@ -39,14 +54,14 @@ const ProductBagComponent = ({item}) => {
           item={item}
         />
       </Modal>
-
       <TouchableOpacity
         style={styles.subContainer}
+        activeOpacity={0.8}
         onPress={() => ToggleProductVisible()}>
         <View style={[styles.imgContainer]}>
           <Image
             source={{uri: item.preview}}
-            style={{width: 100, height: 100, borderRadius: 10}}
+            style={{width: 100, height: 150, borderRadius: 10}}
           />
         </View>
         <View style={styles.detailsContainer}>
@@ -61,25 +76,31 @@ const ProductBagComponent = ({item}) => {
               {item.shop.name}
             </Text>
           </View>
-
           <Text style={styles.priceText}>{item.price}.00$</Text>
-        </View>
-        <View
-          style={{
-            padding: 5,
-            alignItems: 'center',
-          }}>
-          <AddRemoveButton
-            onAdd={() => {
-              let unit = isNaN(item.unit) ? 0 : item.unit;
-              didUpdateCart(unit + 1);
-            }}
-            onRemove={() => {
-              let unit = isNaN(item.unit) ? 0 : item.unit;
-              didUpdateCart(unit > 0 ? unit - 1 : unit);
-            }}
-            unit={item.unit}
-          />
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            <TouchableOpacity
+              style={styles.cartButton}
+              activeOpacity={0.8}
+              onPress={() => {
+                let unit = isNaN(item.unit) ? 0 : item.unit;
+                didUpdateCart(unit + 1);
+              }}>
+              <Text style={{color: 'white'}}>Add to Cart</Text>
+            </TouchableOpacity>
+            {/* <TouchableOpacity onPress={() => dispatch(onUpdateWishList(item))}>
+              <EvilIcons name="heart" size={30} color={'red'} />
+            </TouchableOpacity> */}
+            <RenderHeartButton
+              onAdd={onAdd}
+              onRemove={onRemove}
+              checkWishList={checkWishList}
+              size={20}
+            />
+          </View>
         </View>
       </TouchableOpacity>
     </View>
@@ -118,6 +139,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'red',
   },
+  cartButton: {
+    justifyContent: 'center',
+    width: 140,
+    height: 30,
+    backgroundColor: 'dodgerblue',
+    alignItems: 'center',
+    borderRadius: 5,
+    marginRight: 20,
+  },
 });
 
-export default ProductBagComponent;
+export default SearchListComponent;

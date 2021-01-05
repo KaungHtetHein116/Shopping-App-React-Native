@@ -1,4 +1,11 @@
-import {ON_UPDATE_CART, ON_UPDATE_WISHLIST, ON_REMOVE_WISHLIST} from './types';
+import {
+  ON_UPDATE_CART,
+  ON_UPDATE_WISHLIST,
+  ON_REMOVE_WISHLIST,
+  ON_ADD_ADDRESS,
+  ON_REMOVE_ADDRESS,
+  ON_EDIT_ADDRESS,
+} from './types';
 
 export function onUpdateCart(item) {
   return async (dispatch) => {
@@ -21,6 +28,30 @@ export function onRemoveWishList(item) {
     dispatch({
       type: ON_REMOVE_WISHLIST,
       payload: item,
+    });
+  };
+}
+export function onAddAddress(values) {
+  return async (dispatch) => {
+    dispatch({
+      type: ON_ADD_ADDRESS,
+      payload: values,
+    });
+  };
+}
+export function onRemoveAddress(values) {
+  return async (dispatch) => {
+    dispatch({
+      type: ON_REMOVE_ADDRESS,
+      payload: values,
+    });
+  };
+}
+export function onEditAddress(values) {
+  return async (dispatch) => {
+    dispatch({
+      type: ON_EDIT_ADDRESS,
+      payload: values,
     });
   };
 }

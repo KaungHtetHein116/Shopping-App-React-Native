@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   Text,
   StyleSheet,
@@ -15,9 +15,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import * as theme from '../../util/theme';
 import ImageView from 'react-native-image-view';
-import BagModal from './BagModal';
 import RenderRatings from './RenderRatings';
-import CartItemCount from './CartItemCount';
 import _ from 'lodash';
 import ReviewModal from './ReviewModal';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -30,16 +28,15 @@ import RenderHeartButton from './RenderHeartButton';
 const {width, height} = Dimensions.get('window');
 const scrollX = new Animated.Value(0);
 
-const ProductModal = (props) => {
+const ProductShowCase = (props) => {
   const [index, setIndex] = useState(null);
-  const {item, closeModal, onUpdateCart} = props;
+  const {item, closeModal} = props;
   const [isVisible, setIsVisible] = useState(false);
-  const [bagVisible, setBagVisible] = useState(false);
+
   const [reviewVisible, setReviewVisible] = useState(false);
-  const [itemCount, setItemCount] = useState(0);
+
   const dispatch = useDispatch();
 
-  const cart = useSelector((state) => state.User.Cart);
   const wishList = useSelector((state) => state.User.WishList);
 
   const checkWishList = wishList.some((listItem) => listItem.id === item.id);
@@ -52,55 +49,19 @@ const ProductModal = (props) => {
     dispatch(onRemoveWishList(item));
   };
 
-  const ToggleBagVisible = () => {
-    setBagVisible(!bagVisible);
-  };
-
   const ToggleReviewVisible = () => {
     setReviewVisible(!reviewVisible);
-  };
-
-  useEffect(() => {
-    if (!_.isEmpty(cart)) {
-      itemsInCart();
-      console.log('cart', itemCount);
-    } else {
-      setItemCount(0);
-    }
-  }, [cart]);
-
-  const itemsInCart = () => {
-    let totalItem = 0;
-    cart.map((item) => {
-      totalItem = totalItem + item.unit;
-    });
-    setItemCount(totalItem);
   };
 
   const Header = () => {
     return (
       <View style={[styles.flex, styles.row, styles.header]}>
-        <Modal
-          animationType="slide"
-          visible={bagVisible}
-          onRequestClose={() => ToggleBagVisible()}>
-          <BagModal closeModal={() => ToggleBagVisible()} />
-        </Modal>
         <TouchableOpacity style={styles.back} onPress={closeModal}>
           <MaterialIcons
             name="keyboard-arrow-left"
             size={30}
             color={theme.colors.white}
           />
-        </TouchableOpacity>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          style={styles.iconContainer}
-          onPress={() => ToggleBagVisible()}>
-          <MaterialIcons name="shopping-cart" size={25} color={'white'} />
-          <View style={styles.badgeContainer}>
-            <CartItemCount itemCount={itemCount} />
-          </View>
         </TouchableOpacity>
       </View>
     );
@@ -228,18 +189,6 @@ const ProductModal = (props) => {
         isVisible={isVisible}
         onClose={() => setIsVisible(false)}
       />
-
-      {/* <FooterButtons /> */}
-      <View style={styles.footerContainer}>
-        <TouchableOpacity
-          onPress={() => {
-            onUpdateCart();
-          }}
-          style={[styles.btnContainer, {flex: 1}]}
-          activeOpacity={0.8}>
-          <Text style={styles.btnText}>ADD TO CART</Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 };
@@ -346,4 +295,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProductModal;
+export default ProductShowCase;
