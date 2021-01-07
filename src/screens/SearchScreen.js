@@ -66,6 +66,7 @@ export default function SearchScreen() {
       </View>
       <View style={{paddingBottom: 120}}>
         <FlatList
+          contentContainerStyle={{paddingVertical: 20}}
           data={filteredDataSource}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({item}) => {

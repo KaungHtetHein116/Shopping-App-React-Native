@@ -88,12 +88,12 @@ const WishListComponent = ({item}) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 5,
-    borderWidth: 0.7,
-    borderColor: theme.colors.gray,
+    margin: 5,
+    // borderWidth: 0.7,
+    // borderColor: theme.colors.gray,
     borderRadius: 10,
     backgroundColor: 'white',
-    elevation: 1,
+    elevation: 5,
   },
   subContainer: {
     flexDirection: 'row',

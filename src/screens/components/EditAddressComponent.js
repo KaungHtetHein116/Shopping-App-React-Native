@@ -67,7 +67,6 @@ export default function AddAddressComponent({onClose, item}) {
             return (
               <View>
                 <Text style={styles.text}>Address Name</Text>
-
                 <TextInput
                   style={styles.textInput}
                   placeholder="Example: Home Address"

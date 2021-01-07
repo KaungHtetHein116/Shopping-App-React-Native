@@ -5,6 +5,8 @@ import {
   ON_ADD_ADDRESS,
   ON_REMOVE_ADDRESS,
   ON_EDIT_ADDRESS,
+  ON_CLEAR_CART,
+  ON_PLACE_ORDER,
 } from './types';
 
 export function onUpdateCart(item) {
@@ -51,6 +53,22 @@ export function onEditAddress(values) {
   return async (dispatch) => {
     dispatch({
       type: ON_EDIT_ADDRESS,
+      payload: values,
+    });
+  };
+}
+export function onClearCart() {
+  return async (dispatch) => {
+    dispatch({
+      type: ON_CLEAR_CART,
+    });
+  };
+}
+export function onPlaceOrder(values) {
+  console.log(values);
+  return async (dispatch) => {
+    dispatch({
+      type: ON_PLACE_ORDER,
       payload: values,
     });
   };

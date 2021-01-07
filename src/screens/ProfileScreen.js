@@ -2,25 +2,45 @@ import React from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import faker from 'faker';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import * as theme from '../util/theme';
 import {useNavigation} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
 
 export default function ProfileScreen() {
   const navigation = useNavigation();
+  const userInfo = useSelector((state) => state.User.User);
+  console.log(userInfo);
   return (
     <View style={styles.container}>
       <View style={styles.avatarContainer}>
         <Image source={{uri: faker.image.animals()}} style={styles.image} />
         <View>
           <Text style={{color: theme.colors.black, fontSize: theme.sizes.h2}}>
-            Kaung Htet Hein
+            {userInfo.name}
           </Text>
           <Text style={{color: 'gray', fontSize: theme.sizes.h3}}>
-            KaungHtetHein@mail.com
+            Id: {userInfo.userId}
           </Text>
         </View>
       </View>
+      <View style={{marginVertical: 20}}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}>
+          <AntDesign name="mail" size={30} style={{marginRight: 20}} />
+          <Text>{userInfo.email}</Text>
+        </View>
+        <View
+          style={{flexDirection: 'row', alignItems: 'center', marginTop: 20}}>
+          <AntDesign name="phone" size={30} style={{marginRight: 20}} />
+          <Text>{userInfo.phoneNumber}</Text>
+        </View>
+      </View>
+
       <View>
         <TouchableOpacity style={styles.listContainer} activeOpacity={0.7}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>

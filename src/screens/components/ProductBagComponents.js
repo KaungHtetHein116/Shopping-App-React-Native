@@ -88,12 +88,11 @@ const ProductBagComponent = ({item}) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 5,
-    borderWidth: 0.7,
-    borderColor: theme.colors.gray,
+    marginTop: 10,
+    flex: 1,
     borderRadius: 10,
     backgroundColor: 'white',
-    elevation: 1,
+    elevation: 5,
   },
   subContainer: {
     flexDirection: 'row',

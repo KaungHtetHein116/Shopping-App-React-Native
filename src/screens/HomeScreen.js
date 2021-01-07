@@ -100,7 +100,14 @@ function HomeScreen(props) {
         animationType="slide"
         visible={bagVisible}
         onRequestClose={() => ToggleBagVisible()}>
-        <BagModal closeModal={() => ToggleBagVisible()} />
+        <BagModal
+          closeModal={() => {
+            ToggleBagVisible();
+          }}
+          closeProductModal={() => {
+            return true;
+          }}
+        />
       </Modal>
       <View style={styles.container}>
         {/* Header */}

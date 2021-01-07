@@ -16,6 +16,10 @@ const {width} = Dimensions.get('window');
 const ProductComponent = ({item, onUpdateCart}) => {
   const [productVisible, setProductVisible] = useState(false);
 
+  const closeProductModal = () => {
+    setProductVisible(!productVisible);
+  };
+
   const ToggleProductVisible = () => {
     setProductVisible(!productVisible);
   };
@@ -30,6 +34,7 @@ const ProductComponent = ({item, onUpdateCart}) => {
         visible={productVisible}
         onRequestClose={() => ToggleProductVisible()}>
         <ProductModal
+          closeProductModal={() => closeProductModal()}
           closeModal={() => ToggleProductVisible()}
           item={item}
           onUpdateCart={() => {
@@ -68,7 +73,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderTopRightRadius: theme.sizes.radius,
     borderTopLeftRadius: theme.sizes.radius,
-    elevation: 1,
+    elevation: 5,
   },
   title: {
     fontWeight: 'bold',

@@ -4,7 +4,7 @@ import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 const ItemType = ({type, id, image, selected, onSelected}) => {
   return (
     <TouchableOpacity style={styles.container} onPress={() => onSelected(id)}>
-      <View style={[styles.imgBg, selected && {backgroundColor: '#59B7C9'}]}>
+      <View style={[styles.imgBg, selected && {backgroundColor: 'dodgerblue'}]}>
         <Image source={{uri: image}} style={{width: 40, height: 40}} />
       </View>
       <Text style={styles.text}>{type}</Text>

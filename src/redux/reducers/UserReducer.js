@@ -5,11 +5,19 @@ import {
   ON_ADD_ADDRESS,
   ON_REMOVE_ADDRESS,
   ON_EDIT_ADDRESS,
+  ON_CLEAR_CART,
+  ON_PLACE_ORDER,
 } from '../actions/types';
 import faker from 'faker';
 
 const initialState = {
-  user: {},
+  User: {
+    userId: '2837409823',
+    name: 'Kaung Htet Hein',
+    email: 'kaungkaung116.kk@gmail.com',
+    phoneNumber: '09888190300',
+  },
+  Order: [],
   Cart: [],
   WishList: [],
   Address: [
@@ -111,6 +119,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         Address: newArray,
+      };
+    }
+
+    case ON_CLEAR_CART: {
+      return {
+        ...state,
+        Cart: [],
       };
     }
 

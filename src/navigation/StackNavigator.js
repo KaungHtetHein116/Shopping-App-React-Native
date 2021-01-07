@@ -6,6 +6,7 @@ import WishListScreen from '../screens/WishListScreen';
 import SearchScreen from '../screens/SearchScreen';
 import CategoryScreen from '../screens/CategoryScreen';
 import AddressScreen from '../screens/AddressScreen';
+import CheckOutScreen from '../screens/CheckOutScreen';
 
 const Stack = createStackNavigator();
 
@@ -17,6 +18,7 @@ export const HomeStackNavigator = () => {
       }}>
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
       <Stack.Screen name="SearchScreen" component={SearchScreen} />
+      <Stack.Screen name="CheckOutScreen" component={CheckOutScreen} />
     </Stack.Navigator>
   );
 };

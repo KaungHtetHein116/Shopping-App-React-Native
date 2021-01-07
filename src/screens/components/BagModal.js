@@ -8,17 +8,22 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import * as theme from '../../util/theme';
 import ProductBagComponent from './ProductBagComponents';
 import _ from 'lodash';
+import {useNavigation} from '@react-navigation/native';
 
-const BagModal = ({closeModal}) => {
+const BagModal = ({closeModal, closeProductModal}) => {
   const [itemCount, setItemCount] = useState(0);
   const [subtotalAmount, setsubtotalAmount] = useState(0);
   const [tax, setTax] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
+
   const cart = useSelector((state) => state.User.Cart);
+  const address = useSelector((state) => state.User.Address);
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     if (!_.isEmpty(cart)) {
@@ -30,7 +35,6 @@ const BagModal = ({closeModal}) => {
       setItemCount(0);
     }
   }, [cart]);
-  console.log(cart);
 
   let total = 0;
   const onCalculateAmount = () => {
@@ -117,6 +121,7 @@ const BagModal = ({closeModal}) => {
       {!_.isEmpty(cart) ? (
         <View style={styles.bodyContainer}>
           <FlatList
+            contentContainerStyle={{paddingVertical: 20}}
             showsVerticalScrollIndicator={false}
             data={cart}
             keyExtractor={(item) => item.id}
@@ -145,9 +150,20 @@ const BagModal = ({closeModal}) => {
 
       {!_.isEmpty(cart) ? (
         <View style={styles.footerContainer}>
-          <TouchableOpacity style={styles.btnContainer} activeOpacity={0.8}>
+          <TouchableOpacity
+            style={styles.btnContainer}
+            activeOpacity={0.8}
+            onPress={() => {
+              navigation.navigate('CheckOutScreen', {
+                cart,
+                address,
+                totalAmount: totalAmount,
+              });
+              closeModal();
+              closeProductModal();
+            }}>
             <Text style={styles.btnText}>CHECKOUT</Text>
-            <Icon
+            <MaterialIcons
               name="keyboard-arrow-right"
               size={30}
               color={theme.colors.white}
@@ -161,7 +177,7 @@ const BagModal = ({closeModal}) => {
             activeOpacity={0.8}
             onPress={() => closeModal()}>
             <Text style={styles.btnText}>GO TO SHOPPING</Text>
-            <Icon
+            <MaterialIcons
               name="keyboard-arrow-right"
               size={30}
               color={theme.colors.white}

@@ -50,7 +50,14 @@ export default function WishListScreen() {
         animationType="slide"
         visible={bagVisible}
         onRequestClose={() => ToggleBagVisible()}>
-        <BagModal closeModal={() => ToggleBagVisible()} />
+        <BagModal
+          closeModal={() => {
+            ToggleBagVisible();
+          }}
+          closeProductModal={() => {
+            return true;
+          }}
+        />
       </Modal>
       {/* Header */}
       <View style={styles.headerContainer}>
@@ -65,7 +72,8 @@ export default function WishListScreen() {
         </Text>
         <TouchableOpacity
           style={styles.iconContainer}
-          onPress={() => ToggleBagVisible()}>
+          onPress={() => ToggleBagVisible()}
+          activeOpacity={0.8}>
           <MaterialIcons name="shopping-cart" size={25} color={'white'} />
           <View style={styles.badgeContainer}>
             <CartItemCount itemCount={itemCount} />
@@ -77,6 +85,7 @@ export default function WishListScreen() {
       </View>
       <View>
         <FlatList
+          contentContainerStyle={{paddingVertical: 20}}
           data={wishList}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({item}) => {

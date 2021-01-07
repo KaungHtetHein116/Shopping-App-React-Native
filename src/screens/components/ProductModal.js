@@ -32,7 +32,7 @@ const scrollX = new Animated.Value(0);
 
 const ProductModal = (props) => {
   const [index, setIndex] = useState(null);
-  const {item, closeModal, onUpdateCart} = props;
+  const {item, closeModal, onUpdateCart, closeProductModal} = props;
   const [isVisible, setIsVisible] = useState(false);
   const [bagVisible, setBagVisible] = useState(false);
   const [reviewVisible, setReviewVisible] = useState(false);
@@ -63,7 +63,6 @@ const ProductModal = (props) => {
   useEffect(() => {
     if (!_.isEmpty(cart)) {
       itemsInCart();
-      console.log('cart', itemCount);
     } else {
       setItemCount(0);
     }
@@ -84,7 +83,12 @@ const ProductModal = (props) => {
           animationType="slide"
           visible={bagVisible}
           onRequestClose={() => ToggleBagVisible()}>
-          <BagModal closeModal={() => ToggleBagVisible()} />
+          <BagModal
+            closeModal={() => {
+              ToggleBagVisible();
+            }}
+            closeProductModal={() => closeProductModal()}
+          />
         </Modal>
         <TouchableOpacity style={styles.back} onPress={closeModal}>
           <MaterialIcons
