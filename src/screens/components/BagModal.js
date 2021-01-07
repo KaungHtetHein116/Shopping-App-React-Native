@@ -158,6 +158,7 @@ const BagModal = ({closeModal, closeProductModal}) => {
                 cart,
                 address,
                 totalAmount: totalAmount,
+                itemCount,
               });
               closeModal();
               closeProductModal();

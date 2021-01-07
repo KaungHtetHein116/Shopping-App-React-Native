@@ -1,19 +1,21 @@
 import React, {Fragment} from 'react';
-import {SafeAreaView, StyleSheet, View, StatusBar} from 'react-native';
+import {SafeAreaView, StyleSheet, View, StatusBar, Text} from 'react-native';
 import LottieView from 'lottie-react-native';
+import {useNavigation} from '@react-navigation/native';
 
-const App = () => {
+const LottieDone = () => {
+  const navigation = useNavigation();
   return (
     <Fragment>
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="dark-content" />
         <View style={styles.body}>
           <LottieView
-            source={require('./src/assets/done.json')}
+            source={require('../../assets/done.json')}
             autoPlay
             loop={false}
             resizeMode="cover"
-            onAnimationFinish={() => alert('done')}
+            onAnimationFinish={() => navigation.navigate('HomeScreen')}
             style={{
               height: 400,
             }}
@@ -36,4 +38,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default LottieDone;

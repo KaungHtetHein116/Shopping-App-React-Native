@@ -42,7 +42,10 @@ export default function ProfileScreen() {
       </View>
 
       <View>
-        <TouchableOpacity style={styles.listContainer} activeOpacity={0.7}>
+        <TouchableOpacity
+          style={styles.listContainer}
+          activeOpacity={0.7}
+          onPress={() => navigation.navigate('OrderScreen')}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Ionicons name="list-circle-outline" size={30} color={'black'} />
             <View style={{marginLeft: 10}}>

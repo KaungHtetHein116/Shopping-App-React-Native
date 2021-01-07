@@ -9,6 +9,7 @@ import {
   ON_PLACE_ORDER,
 } from '../actions/types';
 import faker from 'faker';
+import moment from 'moment';
 
 const initialState = {
   User: {
@@ -17,7 +18,20 @@ const initialState = {
     email: 'kaungkaung116.kk@gmail.com',
     phoneNumber: '09888190300',
   },
-  Order: [],
+  Order: [
+    {
+      orderNo: Math.floor(Math.random() * 10000000),
+      status: 'Processing',
+      time: moment().format('MMMM Do YYYY, h:mm:ss a'),
+      itemCount: 3,
+    },
+    {
+      orderNo: Math.floor(Math.random() * 10000000),
+      status: 'Processing',
+      time: moment().format('MMMM Do YYYY, h:mm:ss a'),
+      itemCount: 3,
+    },
+  ],
   Cart: [],
   WishList: [],
   Address: [
@@ -126,6 +140,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         Cart: [],
+      };
+    }
+
+    case ON_PLACE_ORDER: {
+      return {
+        ...state,
+        Order: [...state.Order, action.payload],
       };
     }
 

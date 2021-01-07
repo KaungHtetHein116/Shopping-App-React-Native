@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Picker,
   FlatList,
+  Modal,
 } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -16,28 +17,31 @@ import CheckOutProductComponent from './components/CheckOutProductComponent';
 import {useDispatch} from 'react-redux';
 import {onClearCart, onPlaceOrder} from '../redux/actions/UserAction';
 import moment from 'moment';
+import LottieDone from './components/LottieDone';
 
 export default function CheckOutScreen({route}) {
   const dispatch = useDispatch();
-  const {cart, address, totalAmount} = route.params;
+  const {cart, address, totalAmount, itemCount} = route.params;
   const [pickedItem, setPickedItem] = useState(null);
+  const [visible, setVisible] = useState(false);
   const navigation = useNavigation();
-  console.log(cart);
 
   const order = {
     orderNo: Math.floor(Math.random() * 10000000),
     status: 'Processing',
     time: moment().format('MMMM Do YYYY, h:mm:ss a'),
+    itemCount,
   };
 
   const handleOrder = async () => {
     if (pickedItem) {
-      alert('Your order has been place successfully');
       cart.map((item) => {
         item.unit = 0;
       });
       await dispatch(onPlaceOrder(order));
       await dispatch(onClearCart());
+
+      setVisible(true);
     } else {
       alert('You need to choose an address');
     }
@@ -45,6 +49,9 @@ export default function CheckOutScreen({route}) {
 
   return (
     <View style={styles.container}>
+      <Modal visible={visible} onRequestClose={() => setVisible(!visible)}>
+        <LottieDone />
+      </Modal>
       {/* Header */}
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -205,5 +212,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: theme.sizes.h3,
     color: 'white',
+  },
+  animation: {
+    width: 150,
   },
 });
