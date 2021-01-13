@@ -8,6 +8,8 @@ import CategoryScreen from '../screens/CategoryScreen';
 import AddressScreen from '../screens/AddressScreen';
 import CheckOutScreen from '../screens/CheckOutScreen';
 import OrderScreen from '../screens/OrderScreen';
+import LogInScreen from '../screens/LogInScreen';
+import SignUpScreen from '../screens/SignUpScreen';
 
 const Stack = createStackNavigator();
 
@@ -45,6 +47,19 @@ export const CategoryStackNavigator = () => {
         headerShown: false,
       }}>
       <Stack.Screen name="CategoryScreen" component={CategoryScreen} />
+    </Stack.Navigator>
+  );
+};
+
+export const LogInStackNavigator = () => {
+  return (
+    <Stack.Navigator
+      initialRouteName="LogIn"
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Stack.Screen name="LogInScreen" component={LogInScreen} />
+      <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
     </Stack.Navigator>
   );
 };

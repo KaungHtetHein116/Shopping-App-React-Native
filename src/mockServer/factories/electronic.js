@@ -5,6 +5,7 @@ export default Factory.extend({
   id(i) {
     return i + 1;
   },
+  category: 'electronic',
   shop() {
     return {
       name: faker.company.companyName(),
@@ -15,6 +16,7 @@ export default Factory.extend({
   price: Math.floor(Math.random() * (5000 - 100)),
   description: faker.lorem.paragraphs(),
   rating: 3,
+
   reviews() {
     return {
       reviewers: [
@@ -46,22 +48,22 @@ export default Factory.extend({
   images: [
     {
       source: {
-        uri: faker.image.fashion(),
+        uri: faker.image.abstract(),
       },
     },
     {
       source: {
-        uri: faker.image.fashion(),
+        uri: faker.image.nature(),
       },
     },
     {
       source: {
-        uri: faker.image.fashion(),
+        uri: faker.image.transport(),
       },
     },
     {
       source: {
-        uri: faker.image.fashion(),
+        uri: faker.image.technics(),
       },
     },
   ],

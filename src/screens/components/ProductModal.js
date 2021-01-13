@@ -8,6 +8,7 @@ import {
   Dimensions,
   ScrollView,
   TouchableOpacity,
+  Share,
   Modal,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
@@ -74,6 +75,26 @@ const ProductModal = (props) => {
       totalItem = totalItem + item.unit;
     });
     setItemCount(totalItem);
+  };
+
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message:
+          'React Native | A framework for building native apps using React',
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   const Header = () => {
@@ -188,7 +209,12 @@ const ProductModal = (props) => {
             <Ionicons name="newspaper-outline" size={30} color={'black'} />
           </TouchableOpacity>
           <TouchableOpacity>
-            <FontAwesome name="share-square-o" size={30} color={'black'} />
+            <FontAwesome
+              name="share-square-o"
+              size={30}
+              color={'black'}
+              onPress={onShare}
+            />
           </TouchableOpacity>
 
           <Modal
@@ -218,12 +244,7 @@ const ProductModal = (props) => {
             <RenderRatings rating={props.item.rating} />
             <Text>({item.reviews.reviewerCount})</Text>
           </View>
-          <Text
-            seeMoreStyle={{color: theme.colors.black}}
-            seeLessStyle={{color: theme.colors.black}}
-            style={styles.description}>
-            {item.description}
-          </Text>
+          <Text style={styles.description}>{item.description}</Text>
         </View>
       </ScrollView>
       <ImageView
@@ -305,7 +326,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontWeight: '900',
     fontSize: theme.sizes.h2,
-    color: '#121730',
+    color: 'gray',
     textAlign: 'justify',
   },
   badgeContainer: {
@@ -329,7 +350,7 @@ const styles = StyleSheet.create({
   priceText: {
     fontWeight: 'bold',
     fontSize: theme.sizes.h2,
-    color: '#CB1649',
+    color: 'red',
   },
   footerContainer: {
     padding: 10,

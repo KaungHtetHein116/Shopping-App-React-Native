@@ -2,7 +2,7 @@ import {GET_DATA, GET_DATA_SUCCESS} from '../actions/types';
 
 const INITIAL_STATE = {
   data: null,
-  loading: true,
+  loading: false,
 };
 
 export default (state = INITIAL_STATE, action) => {

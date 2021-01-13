@@ -40,28 +40,26 @@ export default function SearchScreen() {
   return (
     <View style={styles.container}>
       <View style={[styles.flex, styles.row, styles.header]}>
-        <View>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <FontAwesome
-                name="chevron-left"
-                color={theme.colors.black}
-                size={20}
-              />
-            </TouchableOpacity>
-            <TextInput
-              onChangeText={(text) => searchFilterFunction(text)}
-              autoFocus
-              style={{
-                color: theme.colors.black,
-                borderRadius: 20,
-                width: 300,
-                borderColor: 'grey',
-                marginLeft: 20,
-              }}
-              placeholder="Search Product"
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <FontAwesome
+              name="chevron-left"
+              color={theme.colors.black}
+              size={20}
             />
-          </View>
+          </TouchableOpacity>
+          <TextInput
+            onChangeText={(text) => searchFilterFunction(text)}
+            autoFocus
+            style={{
+              color: theme.colors.black,
+              borderRadius: 20,
+              width: 300,
+              borderColor: 'grey',
+              marginLeft: 20,
+            }}
+            placeholder="Search Product"
+          />
         </View>
       </View>
       <View style={{paddingBottom: 120}}>

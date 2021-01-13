@@ -7,6 +7,8 @@ import {
   ON_EDIT_ADDRESS,
   ON_CLEAR_CART,
   ON_PLACE_ORDER,
+  ON_LOGIN,
+  ON_SIGNOUT,
 } from './types';
 
 export function onUpdateCart(item) {
@@ -70,6 +72,23 @@ export function onPlaceOrder(values) {
     dispatch({
       type: ON_PLACE_ORDER,
       payload: values,
+    });
+  };
+}
+
+export function onSignIn(email, password) {
+  console.log(email, password);
+  return async (dispatch) => {
+    dispatch({
+      type: ON_LOGIN,
+    });
+  };
+}
+
+export function onSignOut() {
+  return async (dispatch) => {
+    dispatch({
+      type: ON_SIGNOUT,
     });
   };
 }

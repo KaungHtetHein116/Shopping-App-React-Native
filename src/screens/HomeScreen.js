@@ -20,6 +20,7 @@ import {onUpdateCart} from '../redux/actions/UserAction';
 import {connect} from 'react-redux';
 import CartItemCount from './components/CartItemCount';
 import _ from 'lodash';
+import LottieView from 'lottie-react-native';
 
 const currentTheme = theme.colors.light;
 const types = [
@@ -27,31 +28,19 @@ const types = [
     id: 0,
     type: 'Electronic',
     image:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Noto_Emoji_KitKat_263a.svg/200px-Noto_Emoji_KitKat_263a.svg.png',
+      'https://www.freeiconspng.com/uploads/black-shopping-cart-icon-22.png',
   },
   {
     id: 1,
     type: 'Mobile',
     image:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Noto_Emoji_KitKat_263a.svg/200px-Noto_Emoji_KitKat_263a.svg.png',
+      'https://www.freeiconspng.com/uploads/black-shopping-cart-icon-22.png',
   },
   {
     id: 2,
-    type: 'Food',
+    type: 'Jewelery',
     image:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Noto_Emoji_KitKat_263a.svg/200px-Noto_Emoji_KitKat_263a.svg.png',
-  },
-  {
-    id: 3,
-    type: 'Car',
-    image:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Noto_Emoji_KitKat_263a.svg/200px-Noto_Emoji_KitKat_263a.svg.png',
-  },
-  {
-    id: 4,
-    type: 'Bike',
-    image:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Noto_Emoji_KitKat_263a.svg/200px-Noto_Emoji_KitKat_263a.svg.png',
+      'https://www.freeiconspng.com/uploads/black-shopping-cart-icon-22.png',
   },
 ];
 
@@ -60,7 +49,7 @@ function HomeScreen(props) {
   const dispatch = useDispatch();
 
   const [bagVisible, setBagVisible] = useState(false);
-  const [idSelected, setIdSelected] = useState(0);
+  const [idSelected, setIdSelected] = useState(null);
   const [itemCount, setItemCount] = useState(0);
 
   const ToggleBagVisible = () => {
@@ -69,6 +58,7 @@ function HomeScreen(props) {
 
   const state = useSelector((state) => state.Data.data);
   const cart = useSelector((state) => state.User.Cart);
+  const loading = useSelector((state) => state.Data.loading);
 
   useEffect(() => {
     if (!_.isEmpty(cart)) {
@@ -89,6 +79,9 @@ function HomeScreen(props) {
   useEffect(() => {
     dispatch(ApiCall());
   }, []);
+  // useEffect(() => {
+  //   dispatch(ApiCall());
+  // }, [idSelected]);
 
   const onSelected = (id) => {
     setIdSelected(id);
@@ -163,20 +156,41 @@ function HomeScreen(props) {
         {/* Body */}
         <View style={styles.bodyContainer}>
           <AnimatedScrollView>
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              data={state}
-              numColumns={2}
-              keyExtractor={(item) => item.id}
-              renderItem={({item}) => {
-                return (
-                  <ProductComponent
-                    item={item}
-                    onUpdateCart={props.onUpdateCart}
-                  />
-                );
-              }}
-            />
+            {loading ? (
+              <View
+                style={{
+                  backgroundColor: 'white',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flex: 1,
+                  paddingTop: 200,
+                }}>
+                <LottieView
+                  source={require('../assets/loading.json')}
+                  autoPlay
+                  loop
+                  resizeMode="cover"
+                  style={{
+                    height: 150,
+                  }}
+                />
+              </View>
+            ) : (
+              <FlatList
+                showsVerticalScrollIndicator={false}
+                data={state}
+                numColumns={2}
+                keyExtractor={(item) => item.id}
+                renderItem={({item}) => {
+                  return (
+                    <ProductComponent
+                      item={item}
+                      onUpdateCart={props.onUpdateCart}
+                    />
+                  );
+                }}
+              />
+            )}
           </AnimatedScrollView>
         </View>
       </View>

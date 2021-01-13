@@ -6,11 +6,13 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import * as theme from '../util/theme';
 import {useNavigation} from '@react-navigation/native';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import {onSignOut} from '../redux/actions/UserAction';
 
 export default function ProfileScreen() {
   const navigation = useNavigation();
   const userInfo = useSelector((state) => state.User.User);
+  const dispatch = useDispatch();
   console.log(userInfo);
   return (
     <View style={styles.container}>
@@ -135,6 +137,30 @@ export default function ProfileScreen() {
             />
           </View>
         </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.listContainer}
+          activeOpacity={0.7}
+          onPress={() => dispatch(onSignOut())}>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <MaterialIcons name="logout" size={30} color={'red'} />
+            <View style={{marginLeft: 10}}>
+              <Text
+                style={{
+                  color: 'red',
+                  fontSize: theme.sizes.h2,
+                }}>
+                Log Out
+              </Text>
+            </View>
+          </View>
+          <View>
+            <MaterialIcons
+              name="keyboard-arrow-right"
+              size={30}
+              color={'black'}
+            />
+          </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -143,7 +169,7 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: 15,
+    paddingHorizontal: 15,
     backgroundColor: 'white',
   },
   image: {

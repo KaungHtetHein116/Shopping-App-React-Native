@@ -7,11 +7,14 @@ import {
   ON_EDIT_ADDRESS,
   ON_CLEAR_CART,
   ON_PLACE_ORDER,
+  ON_LOGIN,
+  ON_SIGNOUT,
 } from '../actions/types';
 import faker from 'faker';
 import moment from 'moment';
 
 const initialState = {
+  signedIn: false,
   User: {
     userId: '2837409823',
     name: 'Kaung Htet Hein',
@@ -38,16 +41,6 @@ const initialState = {
     {
       id: 1,
       addressType: 'Home',
-      streetAddress: faker.address.streetAddress(),
-      streetAddress2: faker.address.streetName(),
-      city: faker.address.city(),
-      state: faker.address.state(),
-      postalCode: faker.address.zipCode(),
-      country: faker.address.country(),
-    },
-    {
-      id: 2,
-      addressType: 'Work',
       streetAddress: faker.address.streetAddress(),
       streetAddress2: faker.address.streetName(),
       city: faker.address.city(),
@@ -147,6 +140,18 @@ export default (state = initialState, action) => {
       return {
         ...state,
         Order: [...state.Order, action.payload],
+      };
+    }
+    case ON_LOGIN: {
+      return {
+        ...state,
+        signedIn: true,
+      };
+    }
+    case ON_SIGNOUT: {
+      return {
+        ...state,
+        signedIn: false,
       };
     }
 

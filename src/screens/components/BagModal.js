@@ -13,6 +13,7 @@ import * as theme from '../../util/theme';
 import ProductBagComponent from './ProductBagComponents';
 import _ from 'lodash';
 import {useNavigation} from '@react-navigation/native';
+import LottieView from 'lottie-react-native';
 
 const BagModal = ({closeModal, closeProductModal}) => {
   const [itemCount, setItemCount] = useState(0);
@@ -139,10 +140,24 @@ const BagModal = ({closeModal, closeProductModal}) => {
               alignItems: 'center',
             },
           ]}>
-          <Image
-            style={{width: '100%', height: 250}}
-            source={require('../../assets/empty-cart.png')}
-          />
+          <View
+            style={{
+              backgroundColor: 'white',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flex: 1,
+            }}>
+            <LottieView
+              source={require('../../assets/empty.json')}
+              autoPlay
+              loop
+              resizeMode="cover"
+              style={{
+                height: 150,
+              }}
+            />
+            <Text>Your Cart is Empty</Text>
+          </View>
         </View>
       )}
 

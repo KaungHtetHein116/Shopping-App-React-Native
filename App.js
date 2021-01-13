@@ -1,39 +1,13 @@
-import React, {Fragment} from 'react';
-import {SafeAreaView, StyleSheet, View, StatusBar} from 'react-native';
-import LottieView from 'lottie-react-native';
+import React from 'react';
+import {View, Text} from 'react-native';
 
-const App = () => {
+export default function App() {
+  fetch('/api/shoppingdata/category/electronic')
+    .then((response) => response.json())
+    .then((data) => console.log(data));
   return (
-    <Fragment>
-      <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="dark-content" />
-        <View style={styles.body}>
-          <LottieView
-            source={require('./src/assets/done.json')}
-            autoPlay
-            loop={false}
-            resizeMode="cover"
-            onAnimationFinish={() => alert('done')}
-            style={{
-              height: 400,
-            }}
-          />
-        </View>
-      </SafeAreaView>
-    </Fragment>
+    <View>
+      <Text>test</Text>
+    </View>
   );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  body: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 15,
-  },
-});
-
-export default App;
+}
