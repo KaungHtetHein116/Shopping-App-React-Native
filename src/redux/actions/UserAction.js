@@ -36,6 +36,7 @@ export function onRemoveWishList(item) {
   };
 }
 export function onAddAddress(values) {
+  console.log(values);
   return async (dispatch) => {
     dispatch({
       type: ON_ADD_ADDRESS,

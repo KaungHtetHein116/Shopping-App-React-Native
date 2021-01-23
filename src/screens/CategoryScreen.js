@@ -69,7 +69,8 @@ export default function CategoryScreen() {
             return (
               <TouchableOpacity
                 style={{alignItems: 'center', margin: 5}}
-                activeOpacity={0.8}>
+                activeOpacity={0.8}
+                onPress={() => alert('To be added later')}>
                 <ImageBackground
                   source={{uri: item.image}}
                   style={{width: width - 20, height: 100}}>

@@ -99,13 +99,13 @@ export default (state = initialState, action) => {
     }
     case ON_ADD_ADDRESS: {
       return {
-        state,
+        ...state,
         Address: [...state.Address, action.payload],
       };
     }
     case ON_REMOVE_ADDRESS: {
       return {
-        state,
+        ...state,
         Address: state.Address.filter((item) => item.id !== action.payload.id),
       };
     }

@@ -12,8 +12,9 @@ import {onSignOut} from '../redux/actions/UserAction';
 export default function ProfileScreen() {
   const navigation = useNavigation();
   const userInfo = useSelector((state) => state.User.User);
+  const user = useSelector((state) => state.User);
   const dispatch = useDispatch();
-  console.log(userInfo);
+  console.log(user);
   return (
     <View style={styles.container}>
       <View style={styles.avatarContainer}>
